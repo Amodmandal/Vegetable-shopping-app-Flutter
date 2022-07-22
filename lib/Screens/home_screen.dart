@@ -1,3 +1,4 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -12,26 +13,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List<String> _offerImage = [
+    'assets/images/offres/Offer1.jpg',
+    'assets/images/offres/Offer2.jpg',
+    'assets/images/offres/Offer3.jpg',
+    'assets/images/offres/Offer4.jpg',
+  ];
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
-      body: Center(
-          child: SwitchListTile(
-        title: TextWidget(
-            text: themeState.getDarkTheme ? 'Dark mode' : 'Light Mode',
-            color: themeState.getDarkTheme? Colors.white:Colors.black,
-            textSize: 18),
-        secondary: Icon(themeState.getDarkTheme
-            ? Icons.dark_mode_outlined
-            : Icons.light_mode_outlined),
-        onChanged: (bool value) {
-          setState(() {
-            themeState.setDarkTheme = value;
-          });
+      body: SizedBox(
+        height: 300,
+          child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          return Image.asset(
+            _offerImage[index],
+            fit: BoxFit.fill,
+          );
         },
-        value: themeState.getDarkTheme,
+        itemCount: _offerImage.length,
+        viewportFraction: 0.8,
+        scale: 0.9,
+         pagination: SwiperPagination(),
+        autoplay: true,
       )),
     );
   }
