@@ -18,7 +18,7 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
-    Size size = MediaQuery.of(context).size;
+    double _screenheight = MediaQuery.of(context).size.height;
     double _screenwidth = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {},
@@ -33,8 +33,8 @@ class CategoryWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: _screenwidth * 0.3,
-              width: _screenwidth * 0.3,
+              height:_screenwidth*0.3,
+              width: _screenwidth *0.3,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(imagPath), fit: BoxFit.fill)),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vegetable_app/Screens/btm_bar.dart';
+import 'package:vegetable_app/inner_screens/0nsale_screen.dart';
+import 'package:vegetable_app/inner_screens/feeds_screen.dart';
 import 'package:vegetable_app/provider/dark_theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'consts/theme_data.dart';
@@ -40,10 +42,15 @@ class _MyAppState extends State<MyApp> {
       child:
           Consumer<DarkThemeProvider>(builder: (context, themeProvider, child) {
         return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Vegetable app',
-            theme: Styles.themeData(themeProvider.getDarkTheme, context),
-            home: BottomBarScreen());
+          debugShowCheckedModeBanner: false,
+          title: 'Vegetable app',
+          theme: Styles.themeData(themeProvider.getDarkTheme, context),
+          home: BottomBarScreen(),
+          routes: {
+            OnSaleScreen.routeName: (context) => OnSaleScreen(),
+            FeedsScreen.routeName: (context) => FeedsScreen(),
+          },
+        );
       }),
     );
   }

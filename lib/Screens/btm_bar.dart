@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:vegetable_app/Screens/cart.dart';
 import 'package:vegetable_app/Screens/categories.dart';
 import 'package:vegetable_app/Screens/home_screen.dart';
 import 'package:vegetable_app/Screens/user.dart';
+import 'cart/cart_screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
   BottomBarScreen({Key? key}) : super(key: key);
@@ -29,6 +29,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -51,9 +52,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                     _selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy),
                 label: 'Cart'),
             BottomNavigationBarItem(
-                icon: Icon(_selectedIndex == 3
-                    ? IconlyBold.user2
-                    : IconlyLight.user2),
+                icon: Icon(
+                    _selectedIndex == 3 ? IconlyBold.user2 : IconlyLight.user2),
                 label: 'User')
           ]),
     );

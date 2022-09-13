@@ -53,10 +53,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
 
     return Scaffold(
+    
         appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           elevation: 0,
-          title: TextWidget(text: 'Categories', color: color, textSize: 24),
+          title: TextWidget(
+            text: 'Categories',
+            color: color,
+            textSize: 22,
+            isTitle: true,
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),

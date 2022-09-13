@@ -5,15 +5,20 @@ class Styles {
     return ThemeData(
       scaffoldBackgroundColor:
           //0A1931  // white yellow 0xFFFCF8EC
-          isDarkTheme ? const Color(0xFF00001a) : const Color(0xFFFFFFFF),
+          isDarkTheme
+              ? const Color(0xFF00001a)
+              : Colors.grey[100],
+            
       primaryColor: Colors.blue,
+      fontFamily: 'Lato',
       colorScheme: ThemeData().colorScheme.copyWith(
             secondary:
-                isDarkTheme ? const Color(0xFF1a1f3c) : const Color(0xFFE8FDFD),
+                isDarkTheme ? const Color(0xFF1a1f3c) : Color(0xFFc3c3c3),
             brightness: isDarkTheme ? Brightness.dark : Brightness.light,
           ),
-      cardColor:
-          isDarkTheme ? const Color(0xFF0a0d2c) : const Color(0xFFF2FDFD),
+      cardColor: isDarkTheme
+          ? const Color(0xFF0a0d2c)
+          : Color.fromARGB(255, 240, 247, 250),
       canvasColor: isDarkTheme ? Colors.black : Colors.grey[50],
       buttonTheme: Theme.of(context).buttonTheme.copyWith(
           colorScheme: isDarkTheme

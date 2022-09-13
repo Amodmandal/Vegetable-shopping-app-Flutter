@@ -25,9 +25,10 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-    final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
+    final Color color = themeState.getDarkTheme ? Color.fromARGB(255, 252, 243, 243) : Color.fromARGB(255, 27, 24, 24);
 
     return Scaffold(
+    
       body: Center(
         child: SingleChildScrollView(
             child: Padding(
@@ -41,14 +42,14 @@ class _UserScreenState extends State<UserScreen> {
                     text: 'Hi,  ',
                     style: TextStyle(
                         color: Colors.cyan,
-                        fontSize: 27,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(
                           text: 'Amod Mandal',
                           style: TextStyle(
                               color: color,
-                              fontSize: 25,
+                              fontSize: 22,
                               fontWeight: FontWeight.w600),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
@@ -211,8 +212,8 @@ class _UserScreenState extends State<UserScreen> {
       title: TextWidget(
         text: title,
         color: color,
-        textSize: 22,
-        //isTitle: true,
+        textSize: 20,
+        isTitle: true,
       ),
       subtitle: TextWidget(
         text: subtitle == null ? "" : subtitle,
