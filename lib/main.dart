@@ -5,6 +5,7 @@ import 'package:vegetable_app/inner_screens/feeds_screen.dart';
 import 'package:vegetable_app/provider/dark_theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'consts/theme_data.dart';
+import 'inner_screens/product_details.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
           routes: {
             OnSaleScreen.routeName: (context) => OnSaleScreen(),
             FeedsScreen.routeName: (context) => FeedsScreen(),
+           // ProductDetails.routeName: (Context) => ProductDetails()
           },
         );
       }),
