@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../services/utils.dart';
 
 class ProductDetails extends StatefulWidget {
    static const routeName = '/ProductDetails';

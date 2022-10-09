@@ -52,6 +52,7 @@ class OnSaleScreen extends StatelessWidget {
                       ),
                     ],
                   )))
+          // ignore: dead_code
           : GridView.count(
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
