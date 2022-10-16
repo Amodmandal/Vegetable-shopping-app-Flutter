@@ -2,6 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:vegetable_app/Screens/Wishlist/wishlist_screen.dart';
+import 'package:vegetable_app/Screens/orders/orders_screen.dart';
+import 'package:vegetable_app/Screens/viewed_recently.dart/viewed_recently.dart';
+import 'package:vegetable_app/services/global_methods.dart';
 import 'package:vegetable_app/widgets/text_widget.dart';
 
 import '../provider/dark_theme_provider.dart';
@@ -25,10 +29,11 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-    final Color color = themeState.getDarkTheme ? Color.fromARGB(255, 252, 243, 243) : Color.fromARGB(255, 27, 24, 24);
+    final Color color = themeState.getDarkTheme
+        ? Color.fromARGB(255, 252, 243, 243)
+        : Color.fromARGB(255, 27, 24, 24);
 
     return Scaffold(
-    
       body: Center(
         child: SingleChildScrollView(
             child: Padding(
@@ -83,17 +88,23 @@ class _UserScreenState extends State<UserScreen> {
               _listTiles(
                   title: 'Order',
                   icon: IconlyLight.bag,
-                  onpressed: () {},
+                  onpressed: () {
+                     Navigator.pushNamed(context, OrdersScreen.routeName);
+                  },
                   color: color),
               _listTiles(
                   title: 'WishList',
                   icon: IconlyLight.heart,
-                  onpressed: () {},
+                  onpressed: () {
+                    Navigator.pushNamed(context, WishlistScreen.routeName);
+                  },
                   color: color),
               _listTiles(
                   title: 'Viewed',
                   icon: IconlyLight.show,
-                  onpressed: () {},
+                  onpressed: () {
+                     Navigator.pushNamed(context, ViewedRecentlyScreen.routeName);
+                  },
                   color: color),
               _listTiles(
                 title: 'Forgot Password',
@@ -125,7 +136,13 @@ class _UserScreenState extends State<UserScreen> {
                   title: 'Logout',
                   icon: IconlyLight.logout,
                   onpressed: () {
-                    _showLogoutDialog();
+                    GlobalMethods.warningDialog(
+                        title: 'Sign out',
+                        subtitle: 'Do you wanna sign out',
+                        fct: () {
+                          Navigator.pop(context);
+                        },
+                        context: context);
                   },
                   color: color)
             ],
@@ -133,54 +150,6 @@ class _UserScreenState extends State<UserScreen> {
         )),
       ),
     );
-  }
-
-  Future<void> _showLogoutDialog() async {
-    await showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Row(
-              children: [
-                Image.asset(
-                  'assets/images/warning-sign.png',
-                  height: 20,
-                  width: 20,
-                  fit: BoxFit.fill,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Text('Sign out')
-              ],
-            ),
-            content: Text('Do you wanna sign out?'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  if (Navigator.canPop(context)) {
-                    Navigator.pop(context);
-                  }
-                },
-                child: TextWidget(
-                  color: Colors.cyan,
-                  text: 'Cancel',
-                  textSize: 18,
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: TextWidget(
-                  color: Color.fromARGB(255, 233, 71, 12),
-                  text: 'Ok',
-                  textSize: 18,
-                ),
-              )
-            ],
-          );
-        });
   }
 
   Future<void> _showAddressDialog() async {

@@ -2,6 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vegetable_app/inner_screens/product_details.dart';
 import 'package:vegetable_app/widgets/heart_btn.dart';
 import 'package:vegetable_app/widgets/text_widget.dart';
 
@@ -33,7 +34,9 @@ class _CartWidgetState extends State<CartWidget> {
     final Color color = Utils(context).color;
     Size size = Utils(context).getscreensize;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, ProductDetails.routeName);
+      },
       child: Row(
         children: [
           Expanded(
@@ -80,31 +83,40 @@ class _CartWidgetState extends State<CartWidget> {
                                     color: Colors.red,
                                     icon: CupertinoIcons.minus),
                                 Flexible(
-                                    child: TextField(
-                                  controller: _quantityTextController,
-                                  keyboardType: TextInputType.number,
-                                  maxLines: 1,
-                                  decoration: InputDecoration(
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(),
+                                  child: TextField(
+                                    controller: _quantityTextController,
+                                    keyboardType: TextInputType.number,
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(),
+                                      ),
                                     ),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[0-9.]'))
+                                    ],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (value.isEmpty) {
+                                          _quantityTextController.text = '1';
+                                        } else {
+                                          return;
+                                        }
+                                      });
+                                    },
                                   ),
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp('[0-9.]'))
-                                  ],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if (value.isEmpty) {
-                                        _quantityTextController.text = '1';
-                                      } else {
-                                        return;
-                                      }
-                                    });
-                                  },
-                                )),
+                                ),
                                 _quantityController(
-                                    fct: () {},
+                                    fct: () {
+                                      setState(() {
+                                        _quantityTextController.text =
+                                            (int.parse(_quantityTextController
+                                                        .text) +
+                                                    1)
+                                                .toString();
+                                      });
+                                    },
                                     color: Colors.green,
                                     icon: CupertinoIcons.plus),
                               ],
@@ -124,9 +136,17 @@ class _CartWidgetState extends State<CartWidget> {
                                 color: Colors.red,
                                 size: 20,
                               ),
-                            ),SizedBox(height: 5,),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
                             HeartBTN(),
-                            TextWidget(text: 'RS20', color: color, textSize: 18,maxLines: 1,)
+                            TextWidget(
+                              text: 'RS20',
+                              color: color,
+                              textSize: 18,
+                              maxLines: 1,
+                            )
                           ],
                         ),
                       )

@@ -1,6 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vegetable_app/inner_screens/product_details.dart';
 import 'package:vegetable_app/widgets/heart_btn.dart';
 import 'package:vegetable_app/widgets/price_widget.dart';
 import 'package:vegetable_app/widgets/text_widget.dart';
@@ -37,7 +38,9 @@ class _FeedsWidgetState extends State<FeedsWidget> {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+           Navigator.pushNamed(context, ProductDetails.routeName);
+          },
           borderRadius: BorderRadius.circular(12),
           child: Column(
             children: [
@@ -123,11 +126,12 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 child: TextButton(
                   onPressed: () {},
                   child: TextWidget(
-                      text: 'Add To Cart',
-                      maxLines: 2,
-                      color: color,
-                      textSize: 18,
-                      isTitle: true,),
+                    text: 'Add To Cart',
+                    maxLines: 2,
+                    color: color,
+                    textSize: 18,
+                    isTitle: true,
+                  ),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Theme.of(context).cardColor),

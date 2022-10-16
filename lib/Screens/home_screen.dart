@@ -11,6 +11,8 @@ import 'package:vegetable_app/widgets/feeds_items.dart';
 import 'package:vegetable_app/widgets/on_sale_widget.dart';
 import 'package:vegetable_app/widgets/text_widget.dart';
 
+import '../consts/contss.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -28,12 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  final List<String> _offerImage = [
-    'assets/images/offres/Offer1.jpg',
-    'assets/images/offres/Offer2.jpg',
-    'assets/images/offres/Offer3.jpg',
-    'assets/images/offres/Offer4.jpg',
-  ];
+ 
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -58,13 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           image: DecorationImage(
-                            image: AssetImage(_offerImage[index]),
+                            image: AssetImage(Constss.offerImage[index]),
                             fit: BoxFit.fill,
                           ),
                         ),
                       );
                     },
-                    itemCount: _offerImage.length,
+                    itemCount: Constss.offerImage.length,
                     pagination: SwiperPagination(),
                     autoplay: true,
                     viewportFraction: 0.7,

@@ -1,6 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:vegetable_app/inner_screens/product_details.dart';
 import 'package:vegetable_app/services/utils.dart';
 import 'package:vegetable_app/widgets/heart_btn.dart';
 import 'package:vegetable_app/widgets/price_widget.dart';
@@ -26,7 +27,9 @@ class _nameState extends State<OnSaleWidget> {
         //borderRadius: BorderRadius.circular(12),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, ProductDetails.routeName);
+          },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(

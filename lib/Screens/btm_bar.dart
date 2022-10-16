@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:vegetable_app/Screens/categories.dart';
@@ -29,7 +30,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -48,8 +48,16 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                     : IconlyLight.category),
                 label: 'Categories'),
             BottomNavigationBarItem(
-                icon: Icon(
-                    _selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy),
+                icon: Badge(
+                  toAnimate: true,
+                  shape: BadgeShape.circle,
+                  badgeColor: Colors.blue,
+                  borderRadius: BorderRadius.circular(8),
+                  badgeContent:
+                      FittedBox(child: Text('1', style: TextStyle(color: Colors.white))),
+                  child: Icon(
+                      _selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy),
+                ),
                 label: 'Cart'),
             BottomNavigationBarItem(
                 icon: Icon(
