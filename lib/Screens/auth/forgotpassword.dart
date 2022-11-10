@@ -1,7 +1,11 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vegetable_app/widgets/back_widget.dart';
 import '../../consts/contss.dart';
+import '../../consts/firebase_consts.dart';
+import '../../services/global_methods.dart';
 import '../../services/utils.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/text_widget.dart';
@@ -24,7 +28,45 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     super.dispose();
   }
 
-  void _forgetPassFCT() async {}
+  bool _isLoading = false;
+  void _forgetPassFCT() async {
+    if (_emailTextController.text.isEmpty ||
+        !_emailTextController.text.contains("@")) {
+      GlobalMethods.errorDialog(
+          subtitle: 'Please enter a correct email address', context: context);
+    } else {
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        await authInstance.sendPasswordResetEmail(
+            email: _emailTextController.text.toLowerCase());
+        Fluttertoast.showToast(
+            msg: "An email has been sent to your email address",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey.shade600,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } on FirebaseException catch (error) {
+        GlobalMethods.errorDialog(
+            subtitle: '${error.message}', context: context);
+        setState(() {
+          _isLoading = false;
+        });
+      } catch (error) {
+        GlobalMethods.errorDialog(subtitle: '$error', context: context);
+        setState(() {
+          _isLoading = false;
+        });
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +112,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                
                 TextField(
                   controller: _emailTextController,
                   style: const TextStyle(color: Colors.white),

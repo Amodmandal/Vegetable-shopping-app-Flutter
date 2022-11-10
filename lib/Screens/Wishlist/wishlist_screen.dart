@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 import 'package:vegetable_app/Screens/Wishlist/wishlist_widget.dart';
-import 'package:vegetable_app/Screens/cart/cart_widget.dart';
+
+import 'package:vegetable_app/providers/wishlist_providers.dart';
 import 'package:vegetable_app/widgets/back_widget.dart';
 import 'package:vegetable_app/widgets/text_widget.dart';
 
@@ -23,8 +25,10 @@ class _CartScreenState extends State<WishlistScreen> {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     Size size = Utils(context).getscreensize;
-    bool _isEmpty = true;
-    return _isEmpty == true
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    final wishlistItemsList =
+        wishlistProvider.getWishlistItems.values.toList().reversed.toList();
+    return wishlistItemsList.isEmpty
         ? EmptyScreen(
             imagPath: 'assets/images/wishlist.png',
             title: ' Your wishlist is empty',
@@ -38,7 +42,7 @@ class _CartScreenState extends State<WishlistScreen> {
               elevation: 0,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               title: TextWidget(
-                  text: 'Wishlist(2)',
+                  text: 'Wishlist (${wishlistItemsList.length})',
                   color: color,
                   textSize: 22,
                   isTitle: true),
@@ -48,7 +52,9 @@ class _CartScreenState extends State<WishlistScreen> {
                       GlobalMethods.warningDialog(
                           title: 'Empty your wishlist ?',
                           subtitle: 'Are you sure?',
-                          fct: () {},
+                          fct: () {
+                            wishlistProvider.clearWishlist();
+                          },
                           context: context);
                     },
                     icon: Icon(
@@ -58,11 +64,14 @@ class _CartScreenState extends State<WishlistScreen> {
               ],
             ),
             body: MasonryGridView.count(
+              itemCount: wishlistItemsList.length,
               crossAxisCount: 2,
-              //mainAxisSpacing: 16,
-              //crossAxisSpacing: 20,
+              // mainAxisSpacing: 16,
+              // crossAxisSpacing: 20,
               itemBuilder: (context, index) {
-                return WishlistWidget();
+                return ChangeNotifierProvider.value(
+                    value: wishlistItemsList[index],
+                    child: const WishlistWidget());
               },
             ),
           );

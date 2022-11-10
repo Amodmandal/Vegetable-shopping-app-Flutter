@@ -30,22 +30,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       'imgPath': 'assets/images/cat/veg.png',
       'catText': 'Vegetables',
     },
-    {
-      'imgPath': 'assets/images/cat/Spinach.png',
-      'catText': 'Herbs',
-    },
-    {
-      'imgPath': 'assets/images/cat/nuts.png',
-      'catText': 'Nuts',
-    },
-    {
-      'imgPath': 'assets/images/cat/grains.png',
-      'catText': 'Grains',
-    },
-    {
-      'imgPath': 'assets/images/cat/spices.png',
-      'catText': 'Spices',
-    },
   ];
   @override
   Widget build(BuildContext context) {
@@ -53,7 +37,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
 
     return Scaffold(
-    
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           elevation: 0,
@@ -71,7 +54,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             crossAxisCount: 2,
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
-            children: List.generate(6, (index) {
+            children: List.generate(2, (index) {
               return CategoryWidget(
                 catText: catInfo[index]['catText'],
                 imagPath: catInfo[index]['imgPath'],

@@ -1,16 +1,22 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:vegetable_app/inner_screens/product_details.dart';
 import 'package:vegetable_app/widgets/heart_btn.dart';
 import 'package:vegetable_app/widgets/price_widget.dart';
 import 'package:vegetable_app/widgets/text_widget.dart';
 
+import '../consts/firebase_consts.dart';
+import '../models/products_model.dart';
+import '../providers/cart_provider.dart';
+import '../providers/wishlist_providers.dart';
+import '../services/global_methods.dart';
 import '../services/utils.dart';
 
 class FeedsWidget extends StatefulWidget {
   FeedsWidget({Key? key}) : super(key: key);
-
   @override
   State<FeedsWidget> createState() => _FeedsWidgetState();
 }
@@ -34,19 +40,26 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     final Color color = Utils(context).color;
     //final theme = Utils(context).getTheme;
     Size size = Utils(context).getscreensize;
+    final productModel = Provider.of<ProductModel>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    bool? _isInCart = cartProvider.getCartItems.containsKey(productModel.id);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    bool? _isInWishlist =
+        wishlistProvider.getWishlistItems.containsKey(productModel.id);
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(6.0),
       child: Card(
         child: InkWell(
           onTap: () {
-           Navigator.pushNamed(context, ProductDetails.routeName);
+            Navigator.pushNamed(context, ProductDetails.routeName,
+                arguments: productModel.id);
           },
           borderRadius: BorderRadius.circular(12),
           child: Column(
             children: [
               FancyShimmerImage(
-                imageUrl:
-                    'https://www.pngmart.com/files/8/Cauliflower-PNG-Image-HD.png',
+                imageUrl: productModel.imageUrl,
                 //width: size.width * 0.22,
                 height: size.width * 0.22,
                 width: size.width * 0.22,
@@ -57,12 +70,21 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextWidget(
-                        text: 'Title',
-                        color: color,
-                        textSize: 20,
-                        isTitle: true),
-                    HeartBTN()
+                    Flexible(
+                      flex: 3,
+                      child: TextWidget(
+                          text: productModel.title,
+                          color: color,
+                          maxLines: 1,
+                          textSize: 18,
+                          isTitle: true),
+                    ),
+                    Flexible(
+                        flex: 1,
+                        child: HeartBTN(
+                          productId: productModel.id,
+                          isInWishlist: _isInWishlist,
+                        ))
                   ],
                 ),
               ),
@@ -74,10 +96,10 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                     Flexible(
                       flex: 4,
                       child: PriceWidget(
-                        saleprice: 20,
-                        price: 30,
+                        saleprice: productModel.salePrice,
+                        price: productModel.price,
                         textPrice: _quantityTextController.text,
-                        isOnSale: false,
+                        isOnSale: productModel.isOnSale,
                       ),
                     ),
                     SizedBox(
@@ -89,7 +111,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                         children: [
                           FittedBox(
                             child: TextWidget(
-                                text: 'KG',
+                                text: productModel.isPiece ? 'Piece' : 'kg',
                                 color: color,
                                 textSize: 16,
                                 isTitle: true),
@@ -124,9 +146,24 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: _isInCart
+                      ? null
+                      : () {
+                          final User? user = authInstance.currentUser;
+
+                          if (user == null) {
+                            GlobalMethods.errorDialog(
+                                subtitle: 'No user found, Please login first',
+                                context: context);
+                            return;
+                          }
+                          cartProvider.addProductsToCart(
+                              productId: productModel.id,
+                              quantity:
+                                  int.parse(_quantityTextController.text));
+                        },
                   child: TextWidget(
-                    text: 'Add To Cart',
+                    text: _isInCart ? 'In cart' : 'Add to cart',
                     maxLines: 2,
                     color: color,
                     textSize: 18,

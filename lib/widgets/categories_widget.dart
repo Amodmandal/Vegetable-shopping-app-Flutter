@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vegetable_app/inner_screens/cat_screen.dart';
 import 'package:vegetable_app/widgets/text_widget.dart';
 
 import '../provider/dark_theme_provider.dart';
@@ -21,7 +22,10 @@ class CategoryWidget extends StatelessWidget {
     double _screenheight = MediaQuery.of(context).size.height;
     double _screenwidth = MediaQuery.of(context).size.width;
     return InkWell(
-      onTap: () {},
+      onTap: () {
+         Navigator.pushNamed(context, CategoryScreen.routeName,
+                arguments: catText);
+      },
       child: Container(
         decoration: BoxDecoration(
             color: passcolor.withOpacity(0.1),

@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import '../widgets/text_widget.dart';
 
 class GlobalMethods {
+  static navigateTo({required BuildContext context, required String routname}) {
+    Navigator.pushNamed(context, routname);
+  }
+
+
+
   static Future<void> warningDialog({
     required String title,
     required String subtitle,
@@ -44,6 +50,9 @@ class GlobalMethods {
               TextButton(
                 onPressed: () {
                   fct();
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
                 },
                 child: TextWidget(
                   color: Color.fromARGB(255, 233, 71, 12),
@@ -51,6 +60,47 @@ class GlobalMethods {
                   textSize: 18,
                 ),
               )
+            ],
+          );
+        });
+  }
+  static Future<void> errorDialog({
+
+    required String subtitle,
+    
+    required BuildContext context,
+  }) async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(children: [
+              Image.asset(
+                'assets/images/warning-sign.png',
+                height: 20,
+                width: 20,
+                fit: BoxFit.fill,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              const Text('An Error occured'),
+            ]),
+            content: Text(subtitle),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: TextWidget(
+                  color: Colors.cyan,
+                  text: 'Ok',
+                  textSize: 18,
+                ),
+              ),
+             
             ],
           );
         });

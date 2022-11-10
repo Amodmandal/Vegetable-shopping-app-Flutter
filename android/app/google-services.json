@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "271177815174",
+    "project_id": "vegetable--ordering--app",
+    "storage_bucket": "vegetable--ordering--app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271177815174:android:7d9a7a7d1dcb387887ed07",
+        "android_client_info": {
+          "package_name": "com.example.vegetable_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271177815174-o6cbhm19jilnrobdkrjelkkq8ncf9tmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXRapcRuTa_qmGdqczsuZ2O2_RiwYszj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271177815174-o6cbhm19jilnrobdkrjelkkq8ncf9tmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
