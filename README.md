@@ -1,6 +1,6 @@
-# vegetable_app
+# Vegetable Shopping App
 
-A new Flutter project.
+A vegetable shopping  mobile application using flutter,Firbase and firebase cloud storage.
 
 ## Getting Started
 
