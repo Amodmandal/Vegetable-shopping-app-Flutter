@@ -1,16 +1,22 @@
-# Vegetable Shopping App
 
-A vegetable shopping  mobile application using flutter,Firbase and firebase cloud storage.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# Tarkari
 
-A few resources to get you started if this is your first Flutter project:
+A flutter app with multi-page that allows users to order vegetable in easy way.In this project,we create vegetable shopping android app with admin panel made using technologies such as flutter, Dart, Firebase Cloud storage.we apply key Flutter concepts and fundamental mobile app development skills. we develop  a multi-page mobile application named "Tarkari" that contains :-
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Admin has functionalities to add products, view orders.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Payment integration such as esewa and razorpay is used.
+
+- Provider state management is used in this project. 
+
+- Dark mode and Light mode.
+  
+
+
+
+
+## Screenshots
+![Grocerryyy](https://github.com/Amodmandal/Vegetable-shopping-app-Flutter/assets/80683174/9a42fae5-58eb-4850-93f8-a6ebc7eb1227)
+
